@@ -1,0 +1,16 @@
+This project adapts the O'Reilly "Merb Mind Maps" post:
+
+http://broadcast.oreilly.com/2009/02/merb-mind-maps.html
+
+The do-list is now all about replacing that blog's convenient
+assumptions with productization.
+
+The project currently assumes:
+
+ - your posts are called Post
+ - your tags are called Tag
+ - your association is post.tags
+ - your Post title is .title
+ - ActiveRecord (_not_ Sequel!)
+
+Furtherless, BlogMindMap will rebuild the .png file on each page hit, and does not do the cute drop shadow. 

@@ -1,7 +1,8 @@
 
 class BlogMindMap
-  def initialize(post = nil)
+  def initialize(post = nil, options = {})
     @current_post = post
+    @options = { :max => 10 }.merge(options)
   end
 
   def affinity(from, to)
@@ -28,7 +29,6 @@ class BlogMindMap
     end
   end
 
-
   def sorted_affinity_edges
     edges = affinity_edges.sort
     edges[1..-1].each{|edge| edge[0] = 1 }
@@ -38,10 +38,13 @@ class BlogMindMap
   def cull
     table = sorted_affinity_edges
     posts = {}
+    max = @options[:max].to_i
+    max = 10 if max == 0
 
     returning [] do |edges|
       table.map do |prime, weight, from, to|
-        if prime == 0 or posts[from.title] != posts[to.title]
+        if prime == 0 || posts[from.title] != posts[to.title] and
+           (max -= 1) >= 0
           posts[from.title] = true
           posts[  to.title] = true
           edges << [from, to]

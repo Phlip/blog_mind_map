@@ -11,6 +11,8 @@ end
 describe BlogMindMap do
 
   setup do
+    Post.destroy_all
+    Tag.destroy_all
     FixtureDependencies.load(:posts)
     FixtureDependencies.load(:tags)
        #  note that all specs will still work
@@ -105,6 +107,17 @@ describe BlogMindMap do
     assert{ !pairs.include? [one, sard] }  #  to avoid a cycle with Jammin...
   end
 
+  it 'should not use too many posts' do
+    42.times do |x| 
+      Post.create!(:title => x, :body => x).
+        tags = [tags(:back_beat)]
+    end
+    Post.count.should > 42
+    map = BlogMindMap.new(posts(:Jammin), :max => 15)
+    pairs = map.cull
+    assert{ pairs.length == 15 }
+  end
+  
   it "should create a graph containing the current Post's title" do
     post = posts(:Jammin)
     map = BlogMindMap.new(post)
