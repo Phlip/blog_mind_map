@@ -8,7 +8,7 @@ Spec::Runner.configure do |c|
   c.include Test::Unit::Assertions
 end
 
-describe MindMap do
+describe BlogMindMap do
 
   setup do
     FixtureDependencies.load(:posts)
@@ -25,7 +25,7 @@ describe MindMap do
   def tags(*symbols);   load(:tag,  symbols);  end
 
   it 'should rate two posts by affinity' do
-    map  = MindMap.new
+    map  = BlogMindMap.new
     jam  = posts(:Jammin)
     sard = posts(:Sardonicus)
     lith = posts(:Lithium)
@@ -37,7 +37,7 @@ describe MindMap do
 
   it 'should produce elements of arrays sortable by affinity' do
     jam  = posts(:Jammin)
-    map  = MindMap.new(jam)
+    map  = BlogMindMap.new(jam)
     one  = posts(:One_Step_Beyond)
     joan = posts(:Joan_Crawford_Has_Risen)
     oryx = posts(:Oryx_vs_Crake)
@@ -58,7 +58,7 @@ describe MindMap do
 
   it 'should produce elements of arrays sortable by affinity' do
     jam   = posts(:Jammin)
-    map   = MindMap.new(jam)
+    map   = BlogMindMap.new(jam)
     one   = posts(:One_Step_Beyond)
     joan  = posts(:Joan_Crawford_Has_Risen)
     oryx  = posts(:Oryx_vs_Crake)  #  the <em>vs<em> is an inside joke... (-:
@@ -81,7 +81,7 @@ describe MindMap do
   it 'should produce elements of arrays sorted by affinity' do
     jam, sard, one, joan = posts( :Jammin, :Sardonicus, :One_Step_Beyond,
                                   :Joan_Crawford_Has_Risen )
-    map   = MindMap.new(jam)
+    map   = BlogMindMap.new(jam)
     edges = map.sorted_affinity_edges
     jam_to_sard  = edges.index([0, -3, jam,  sard])  #  both are reggae
     jam_to_one   = edges.index([1, -2, jam,  one ])  #  both have a back beat
@@ -98,7 +98,7 @@ describe MindMap do
     jam, sard, one, joan = posts( :Jammin, :Sardonicus, 
                                   :One_Step_Beyond,
                                   :Joan_Crawford_Has_Risen )
-    map = MindMap.new(jam)
+    map = BlogMindMap.new(jam)
     pairs = map.cull
     assert{  [jam, sard].in?(pairs) }  #  essentially the trunk!
     assert{ ![jam, joan].in?(pairs) }  #  because joan is closer to other nodes
@@ -107,7 +107,7 @@ describe MindMap do
 
   it "should create a graph containing the current Post's title" do
     post = posts(:Jammin)
-    map = MindMap.new(post)
+    map = BlogMindMap.new(post)
     dot = map.to_dot
     dot.should match(/graph mind_map \{/)
     dot.should match(/post_#{post.id}.*label = .#{post.title}/)
@@ -117,7 +117,7 @@ describe MindMap do
     suspects = posts( :Jammin, :Sardonicus, :One_Step_Beyond,
                       :Joan_Crawford_Has_Risen, :Lithium )
 
-    dot = MindMap.new(suspects.first).to_dot
+    dot = BlogMindMap.new(suspects.first).to_dot
 
     suspects.each do |post|
       dot.should match(/post_#{ post.id }.*label.*#{ post.title }/)
@@ -128,13 +128,13 @@ describe MindMap do
 
   it 'should link Posts by maximum affinity' do
     jam, sard = posts(:Jammin, :Sardonicus)
-    dot = MindMap.new(jam).to_dot
+    dot = BlogMindMap.new(jam).to_dot
     dot.should match(/post_#{ jam.id } -- post_#{ sard.id }/)
   end
 
   it 'should generate SVG' do
     posts = posts(:C30_C60_C90_Go, :Lithium)
-    image = MindMap.new(posts.first).to_image(:svg)
+    image = BlogMindMap.new(posts.first).to_image(:svg)
     path  = Pathname.new(Merb.root) + "public" + image
     assert_xhtml path.read
     
