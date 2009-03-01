@@ -1,0 +1,54 @@
+
+C30_C60_C90_Go:
+  title:     'C30, C60, C90, Go'
+  body:      'press my playback to make it last'
+  author:    'Bow Wow Wow'
+  tags:    [ :new_wave, :british, :surf, :downbeat ]
+
+Diamond_Dogs:
+  title:     'Diamond Dogs'
+  body:      'Ten thousand peoploids'
+  author:    'David Bowie'
+  tags:    [ :new_wave, :british, :rock, :downbeat ]
+
+Jammin:
+  title:     "Jammin'"
+  body:      'in the name of the Lord'
+  author:    'Bob Marley'
+  tags:    [ :roots, :reggae, :back_beat, :music ]
+
+Joan_Crawford_Has_Risen:
+  title:     'Joan Crawford has Risen'
+  body:      'From the Grave'
+  author:    'Blue Oyster Cult'
+  tags:    [ :progressive, :rock, :downbeat, :music ]
+
+Lithium:
+  title:     'Lithium'
+  body:      'I light candles'
+  author:    'Nirvana'
+  tags:    [ :grunge, :rock, :downbeat, :music ]
+
+One_Step_Beyond:
+  title:     'One Step Beyond'
+  body:      'Rocksteady'
+  author:    'Madness'
+  tags:    [ :ska, :back_beat, :music ]
+
+Oryx_vs_Crake:
+  title:     'Oryx and Crake'
+  body:      'corknut!'
+  author:    'Margaret Atwood'
+  tags:    [ :book ]
+
+Sardonicus:
+  title:     'Sardonicus'
+  body:      "is everybody's friend"
+  author:    'UB40'
+  tags:    [ :progressive, :reggae, :back_beat, :music ]
+
+Surfin_USA:
+  title:     "Surfin' USA"
+  body:      'San Onofree'
+  author:    'The Beach Boys'
+  tags:    [ :surf ]
