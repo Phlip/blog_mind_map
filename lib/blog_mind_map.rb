@@ -15,7 +15,7 @@ class BlogMindMap
   end
 
   def affinity_edges
-    posts = Post.order(:title).all    #  TODO  abstract the Post type and its search method
+    posts = Post.all(:order => 'title')  #  TODO  abstract the Post type and its search method
       #  like ActiveRecord <code>Post.find(:all, :order => 'title')</code>
       
     returning [] do |edges|
