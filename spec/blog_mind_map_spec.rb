@@ -64,14 +64,14 @@ describe BlogMindMap do
     oryx  = posts(:Oryx_vs_Crake)  #  the <em>vs<em> is an inside joke... (-:
     edges = map.affinity_edges
     edges.length.should == edges.uniq.length
-    assert{ [0, -2, jam,  one ].in?(edges) }
-    assert{ [0, -1, jam,  joan].in?(edges) }
+    assert{ edges.include? [0, -2, jam,  one ] }
+    assert{ edges.include? [0, -1, jam,  joan] }
     pairs = edges.map{|c,a,f,t| [f,t]}
-    assert{  [joan, one ].in?(pairs) }
-    assert{ ![jam,  oryx].in?(pairs) }  #  no edge!
-    assert{ ![one,  jam ].in?(pairs) }  #  not unique!
-    assert{ ![joan, jam ].in?(pairs) }
-    assert{ ![one,  joan].in?(pairs) }
+    assert{  pairs.include? [joan, one ] }
+    assert{ !pairs.include? [jam,  oryx] }  #  no edge!
+    assert{ !pairs.include? [one,  jam ] }  #  not unique!
+    assert{ !pairs.include? [joan, jam ] }
+    assert{ !pairs.include? [one,  joan] }
   end  #  note that an "assert not" must relax more than an assert!
 
   class ::Post
@@ -100,9 +100,9 @@ describe BlogMindMap do
                                   :Joan_Crawford_Has_Risen )
     map = BlogMindMap.new(jam)
     pairs = map.cull
-    assert{  [jam, sard].in?(pairs) }  #  essentially the trunk!
-    assert{ ![jam, joan].in?(pairs) }  #  because joan is closer to other nodes
-    assert{ ![one, sard].in?(pairs) }  #  to avoid a cycle with Jammin...
+    assert{  pairs.include? [jam, sard] }  #  essentially the trunk!
+    assert{ !pairs.include? [jam, joan] }  #  because joan is closer to other nodes
+    assert{ !pairs.include? [one, sard] }  #  to avoid a cycle with Jammin...
   end
 
   it "should create a graph containing the current Post's title" do
@@ -135,7 +135,7 @@ describe BlogMindMap do
   it 'should generate SVG' do
     posts = posts(:C30_C60_C90_Go, :Lithium)
     image = BlogMindMap.new(posts.first).to_image(:svg)
-    path  = Pathname.new(Merb.root) + "public" + image
+    path  = Pathname.new(HomeRoot) + 'public' + image  #  TODO  put in public/images
     assert_xhtml path.read
     
     assert do
@@ -145,7 +145,7 @@ describe BlogMindMap do
     end
   end
 
-  it 'should decorate the Post page with a mind map' do
+  xit 'should decorate the Post page with a mind map' do
     jam_id = posts(:Jammin).id
     @response = request("/posts/#{jam_id}")
     assert_xhtml @response.body

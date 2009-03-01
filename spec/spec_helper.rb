@@ -40,6 +40,9 @@ end
 
 class Post < ActiveRecord::Base
   has_and_belongs_to_many :tags
+    def <=> other
+      self.title <=> other.title
+    end  #  a tie breaker...  TODO  retrofit this
 end
 
 class Tag < ActiveRecord::Base

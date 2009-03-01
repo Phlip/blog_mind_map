@@ -28,9 +28,6 @@ class BlogMindMap
     end
   end
 
-  def <=> other
-    self.title <=> other.title
-  end  #  a tie breaker...
 
   def sorted_affinity_edges
     edges = affinity_edges.sort
