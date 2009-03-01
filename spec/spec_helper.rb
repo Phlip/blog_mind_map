@@ -14,6 +14,7 @@ require 'fixture_dependencies/test_unit'
 require 'fixture_dependencies'
 
 HomeRoot = (Pathname.new(__FILE__).dirname + '..').expand_path
+RAILS_ROOT = HomeRoot.to_s
 FixtureDependencies.fixture_path = (HomeRoot + 'spec/fixtures').to_s
 require HomeRoot + 'lib/blog_mind_map'
 

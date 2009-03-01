@@ -80,7 +80,7 @@ class BlogMindMap
 
   def to_image(format)
     image = "images/post_#{@current_post.id}.#{format}"
-    path = Pathname.new(HomeRoot) + 'public' + image  #  TODO  productize the root!
+    path = Pathname.new(RAILS_ROOT) + 'public' + image  #  TODO  productize the root!
     command = "dot -T#{format} -o #{path.to_s.inspect}"
     IO.popen(command, 'w'){|f| f.write(to_dot) }
     return image
